@@ -1,11 +1,6 @@
 from constraint import *
 
-
-# values = {'m', 'o', 'i', 't', 'l', 'u', 'e', 'n', 's', 'r1', 'r2', 'r3'}
-
-# values = {'o', 'i', 'u', 's'}
-# values2 = {'m', 't', 'l', 'e', 'n'}
-# values3 = {'r1', 'r2', 'r3'}
+# BINOME : MOUNIB BENIMAM et YOUCEF BENSLIMANE
 
 range1 = range(10)
 range2 = range(1, 10)
@@ -28,7 +23,21 @@ pb.addConstraint(lambda u, o, l, r1, r2: (2 * o + u + l + r1) == u + 10 * r2, ["
 pb.addConstraint(lambda m, l, t, o, r2, r3: (m + t + 2*l + r2) == o + 10 * r3, ["m", "l", "t", "o", "r2", "r3"])
 pb.addConstraint(lambda n, e, r3: e + r3 == n, ["n", "e", "r3"])
 
-
 solutions = pb.getSolutions()
 print("Nombre de solutions = ", len(solutions))
-print(solutions[0])
+
+nous_max_value = 0
+best_solu = solutions[0]
+
+for s in solutions:
+    res = 1*(3*s['i'] + s['e'] - 10*s['r1']) + 10 * (2 * s['o'] + s['u'] + s['l'] + s['r1'] - 10 * s['r2']) + 100 * (s['m'] + s['t'] + 2*s['l'] + s['r2'] - 10 * s['r3']) + 1000 * (s['e']+s['r3'])
+    if res >= nous_max_value:
+        nous_max_value = res
+        best_solu = s
+
+print('Maximum Nous Value : ', nous_max_value)
+print('Best solution : ', best_solu)
+
+# Nombre de solutions =  160
+# Maximum Nous Value :  9723
+# Best solution :  {'e': 8, 'l': 4, 'o': 7, 'r1': 2, 'r2': 2, 'r3': 1, 'n': 9, 'm': 1, 't': 6, 'i': 5, 's': 3, 'u': 2}
